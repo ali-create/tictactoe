@@ -1,9 +1,13 @@
 // Dot ids
 
+"use strict";
+
 const winnerIdO = "OOO";
 const winnerIdX = "XXX";
 const winningIdO = winnerIdO[1];
 const winningIdX = winnerIdX[1];
+
+let input = true;
 
 const mapFrameIds = {
   a1: document.querySelector(".a1"),
@@ -24,55 +28,55 @@ let currentPlayer = Math.trunc(Math.random() * 2);
 // User Input
 {
   mapFrameIds.a1.addEventListener("click", function () {
-    if (map.a1 == "\u00b7") {
+    if (map.a1 == "\u00b7" && input) {
       setUnit("a1", currentPlayer ? "O" : "X");
       currentPlayer = currentPlayer ? 0 : 1;
     }
   });
   mapFrameIds.a2.addEventListener("click", function () {
-    if (map.a2 == "\u00b7") {
+    if (map.a2 == "\u00b7" && input) {
       setUnit("a2", currentPlayer ? "O" : "X");
       currentPlayer = currentPlayer ? 0 : 1;
     }
   });
   mapFrameIds.a3.addEventListener("click", function () {
-    if (map.a3 == "\u00b7") {
+    if (map.a3 == "\u00b7" && input) {
       setUnit("a3", currentPlayer ? "O" : "X");
       currentPlayer = currentPlayer ? 0 : 1;
     }
   });
   mapFrameIds.b1.addEventListener("click", function () {
-    if (map.b1 == "\u00b7") {
+    if (map.b1 == "\u00b7" && input) {
       setUnit("b1", currentPlayer ? "O" : "X");
       currentPlayer = currentPlayer ? 0 : 1;
     }
   });
   mapFrameIds.b2.addEventListener("click", function () {
-    if (map.b2 == "\u00b7") {
+    if (map.b2 == "\u00b7" && input) {
       setUnit("b2", currentPlayer ? "O" : "X");
       currentPlayer = currentPlayer ? 0 : 1;
     }
   });
   mapFrameIds.b3.addEventListener("click", function () {
-    if (map.b3 == "\u00b7") {
+    if (map.b3 == "\u00b7" && input) {
       setUnit("b3", currentPlayer ? "O" : "X");
       currentPlayer = currentPlayer ? 0 : 1;
     }
   });
   mapFrameIds.c1.addEventListener("click", function () {
-    if (map.c1 == "\u00b7") {
+    if (map.c1 == "\u00b7" && input) {
       setUnit("c1", currentPlayer ? "O" : "X");
       currentPlayer = currentPlayer ? 0 : 1;
     }
   });
   mapFrameIds.c2.addEventListener("click", function () {
-    if (map.c2 == "\u00b7") {
+    if (map.c2 == "\u00b7" && input) {
       setUnit("c2", currentPlayer ? "O" : "X");
       currentPlayer = currentPlayer ? 0 : 1;
     }
   });
   mapFrameIds.c3.addEventListener("click", function () {
-    if (map.c3 == "\u00b7") {
+    if (map.c3 == "\u00b7" && input) {
       setUnit("c3", currentPlayer ? "O" : "X");
       currentPlayer = currentPlayer ? 0 : 1;
     }
@@ -86,9 +90,9 @@ let map = {};
 const letters = ["a", "b", "c"];
 
 let letter = letters[0];
-for (ii = 0; ii < 3; ii++) {
+for (let ii = 0; ii < 3; ii++) {
   letter = letters[ii];
-  for (i = 1; i < 4; i++) {
+  for (let i = 1; i < 4; i++) {
     map[`${letter}${i}`] = "\u00b7";
   }
 }
@@ -141,18 +145,27 @@ const setUnit = function (key, value, showUpdate = false) {
   ) {
     log(printBoard());
     winner.textContent = `${winningIdO} wins!`;
+    input = false;
+    winner.classList.add("winnerEnd");
+    winner.classList.add("winnerEnd");
   }
 
   for (let i = 0; i < 3; i++) {
     if (chunks.topRow[i] + chunks.midRow[i] + chunks.lowRow[i] == winnerIdO) {
       winner.textContent = `${winningIdO} wins!`;
+      input = false;
+      winner.classList.add("winnerEnd");
     }
   }
   if (getValues(map)[0] + getValues(map)[4] + getValues(map)[8] == winnerIdO) {
     winner.textContent = `${winningIdO} wins!`;
+    input = false;
+    winner.classList.add("winnerEnd");
   }
   if (getValues(map)[2] + getValues(map)[4] + getValues(map)[6] == winnerIdO) {
     winner.textContent = `${winningIdO} wins!`;
+    input = false;
+    winner.classList.add("winnerEnd");
   }
   // X line
 
@@ -163,18 +176,26 @@ const setUnit = function (key, value, showUpdate = false) {
   ) {
     log(printBoard());
     winner.textContent = `${winningIdX} wins!`;
+    input = false;
+    winner.classList.add("winnerEnd");
   }
 
   for (let i = 0; i < 3; i++) {
     if (chunks.topRow[i] + chunks.midRow[i] + chunks.lowRow[i] == winnerIdX) {
       winner.textContent = `${winningIdX} wins!`;
+      input = false;
+      winner.classList.add("winnerEnd");
     }
   }
   if (getValues(map)[0] + getValues(map)[4] + getValues(map)[8] == winnerIdX) {
     winner.textContent = `${winningIdX} wins!`;
+    input = false;
+    winner.classList.add("winnerEnd");
   }
   if (getValues(map)[2] + getValues(map)[4] + getValues(map)[6] == winnerIdX) {
     winner.textContent = `${winningIdX} wins!`;
+    input = false;
+    winner.classList.add("winnerEnd");
 
     // tie
   }
@@ -185,6 +206,8 @@ const setUnit = function (key, value, showUpdate = false) {
 function checkForTie() {
   if (!getValues(map).includes("\u00b7")) {
     winner.textContent = "Tie!";
+    input = false;
+    winner.classList.add("winnerEnd");
   }
 }
 
